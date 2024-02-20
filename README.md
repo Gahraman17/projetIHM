@@ -1,4 +1,4 @@
-# Jeu Chasser l'intrus
+# Jeux Chasser l'intrus
 
 Chasser l'intrus est un jeu qui consiste à trouver l'intrus sur un ensemble de mot ou image donnée. Il a pour objectif de renforcer les compétences du joueur sur plusieurs domaines comme mathématique, informatique, physique et chimie, philosophie, littérature...
 Le principe du jeu :
