@@ -13,6 +13,6 @@ Du coup, ici, l'objectif était de bien reconnaître les grammaires de chaque la
 
 # Réalisé par
 
-- Abdou salam
+- Abdou Salam
 - Akram Amrani
 - Frédéric Turcq
