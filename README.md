@@ -10,3 +10,9 @@ printf() - scanf() - System.out.println()
 
 Dans cette question : l'intrus, c'est System.out.println(), car parmi les mots présentés ,printf() - scanf() ce sont des concepts appartenant au langage c.
 Du coup, ici, l'objectif était de bien reconnaître les grammaires de chaque langage.
+
+# Réalisé par
+
+- Abdou salam
+- Akram Amrani
+- Frédéric Turcq
