@@ -11,6 +11,15 @@ printf() - scanf() - System.out.println()
 Dans cette question : l'intrus, c'est System.out.println(), car parmi les mots présentés ,printf() - scanf() ce sont des concepts appartenant au langage c.
 Du coup, ici, l'objectif était de bien reconnaître les grammaires de chaque langage.
 
+
+# Diapo
+
+https://www.canva.com/design/DAF9usy6cfA/EtAbx4WtRJZXaW1fw0Vafg/edit?utm_content=DAF9usy6cfA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+# Figma
+
+https://www.figma.com/file/kf6v69yPAitxonbunlDo4A/Untitled?type=design&node-id=0%3A1&mode=design&t=VRcoU7QVW89tHyA7-1
+
 # Réalisé par
 
 - Abdou Salam Diallo
