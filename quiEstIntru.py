@@ -36,7 +36,7 @@ questions = [
     },
     {
         'question': "Prof informatique",
-        'options': ['Vittori', 'Hurson', 'Nivet'],
+        'options': ['chien', 'Chat', 'Arbre'],
         'correct_answer': 'Hurson'
     },
     {
