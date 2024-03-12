@@ -35,7 +35,7 @@ questions = [
         'correct_answer': 'Pierre'
     },
     {
-        'question': "Prof informatique",
+        'question': "Animeaux",
         'options': ['chien', 'Chat', 'Arbre'],
         'correct_answer': 'Hurson'
     },
