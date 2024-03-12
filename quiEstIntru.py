@@ -37,7 +37,7 @@ questions = [
     {
         'question': "Animeaux",
         'options': ['chien', 'Chat', 'Arbre'],
-        'correct_answer': 'Hurson'
+        'correct_answer': 'Arbre'
     },
     {
         'question': "Composant d'un ordinateur",
