@@ -5,54 +5,54 @@ import random
 # Liste des questions
 questions = [
     {
-        'question': "Quelle est la capitale de la France?",
-        'options': ['Paris', 'Berlin', 'Londres'],
-        'correct_answer': 'Paris'
+        'question': "Capital d'Europe",
+        'options': ['Paris', 'Berlin', 'Tokyo'],
+        'correct_answer': 'Tokyo'
     },
     {
-        'question': "Quel langage de programmation est souvent utilisé pour le développement web?",
-        'options': ['Python', 'Java', 'JavaScript'],
-        'correct_answer': 'JavaScript'
+        'question': "Language orienté web",
+        'options': ['Haskell', 'PHP', 'JavaScript'],
+        'correct_answer': 'Haskell'
     },
     {
-        'question': "Quel est le système d'exploitation développé par Apple?",
-        'options': ['Windows', 'iOS', 'Android'],
-        'correct_answer': 'iOS'
+        'question': "Produit Apple?",
+        'options': ['S9', 'Ipad', 'Iphone'],
+        'correct_answer': 'S9'
     },
     {
-        'question': "Quelle est la principale fonction de Git?",
-        'options': ["Navigation GPS", "Contrôle de version", "Traitement d'image"],
-        'correct_answer': 'Contrôle de version'
+        'question': "Outil de localisation",
+        'options': ["Google maps", "CleverMaps", "Photoshop"],
+        'correct_answer': 'Photoshop'
     },
     {
-        'question': "En informatique, que signifie l'acronyme 'HTML'?",
-        'options': ['HyperText Markup Language', 'High Tech Modern Language', 'Home Tool Markup Language'],
-        'correct_answer': 'HyperText Markup Language'
+        'question': "Joueur de foot",
+        'options': ['Ronaldo', 'Lebron James', 'Messi'],
+        'correct_answer': 'Lebron James'
     },
     {
-        'question': "Quel est le langage de programmation utilisé pour créer des applications Android?",
-        'options': ['Swift', 'Java', 'C#'],
-        'correct_answer': 'Java'
+        'question': "Palindrome",
+        'options': ['Kayak', 'Ressasser', 'Pierre'],
+        'correct_answer': 'Pierre'
     },
     {
-        'question': "Quelle est la fonction de la boucle 'for' en programmation?",
-        'options': ['Itération', 'Condition', 'Déclaration'],
-        'correct_answer': 'Itération'
+        'question': "Prof informatique",
+        'options': ['Vittori', 'Hurson', 'Nivet'],
+        'correct_answer': 'Hurson'
     },
     {
-        'question': "Quel est le principal composant d'un ordinateur?",
-        'options': ['Carte graphique', 'Processeur', 'Mémoire RAM'],
-        'correct_answer': 'Processeur'
+        'question': "Composant d'un ordinateur",
+        'options': ['Lunette', 'Processeur', 'Mémoire RAM'],
+        'correct_answer': 'Lunette'
     },
     {
-        'question': "Quelle est la différence entre RAM et ROM?",
-        'options': ['RAM est volatile, ROM est non volatile', 'RAM est non volatile, ROM est volatile', 'Elles sont identiques'],
-        'correct_answer': 'RAM est volatile, ROM est non volatile'
+        'question': "Acteur",
+        'options': ['Di Caprio', 'Brad Pitt' 'MBappé'],
+        'correct_answer': 'MBappé'
     },
     {
-        'question': "Quel est le fondateur de Microsoft?",
-        'options': ['Steve Jobs', 'Bill Gates', 'Mark Zuckerberg'],
-        'correct_answer': 'Bill Gates'
+        'question': "Nombre premier",
+        'options': ['7', '11', '22'],
+        'correct_answer': '22'
     },
 ]
 
