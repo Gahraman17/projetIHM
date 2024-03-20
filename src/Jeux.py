@@ -1,12 +1,21 @@
+# -*- coding: utf-8 -*-
+"""
+Code source du projet Cherchez l'intrus
+
+@author : fredt
+
+Classe Jeux
+"""
+
 class Jeux:
     def __init__(self, db):
-        # Initialise la classe Jeux avec une connexion à la base de données.
+        # Initialisation de la classe Jeux avec une instance de la base de données
         self.db = db
 
-    def get_categories(self):
-        # Récupère les catégories à partir de la base de données.
-        return self.db.get_categories()
+    def obtenir_categories(self):
+        # Méthode pour obtenir toutes les catégories disponibles depuis la base de données
+        return self.db.obtenir_categories()
 
-    def get_questions(self, category_id):
-        # Récupère les questions associées à une catégorie spécifiée à partir de la base de données.
-        return self.db.get_questions_by_category(category_id)
+    def obtenir_questions(self, id_categorie):
+        # Méthode pour obtenir toutes les questions d'une catégorie spécifique depuis la base de données
+        return self.db.obtenir_questions_par_categorie(id_categorie)

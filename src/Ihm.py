@@ -1,64 +1,136 @@
-import tkinter as tk  # Importe le module tkinter sous l'alias 'tk'
-from tkinter import messagebox  # Importe la classe 'messagebox' du module tkinter
-from Jeux import Jeux  # Importe la classe 'Jeux' depuis le module 'Jeux'
+# -*- coding: utf-8 -*-
+"""
+Code source du projet Cherchez l'intrus
+
+@author : fredt
+
+Interface utilisateur du jeu Cherchez l'intrus
+"""
+
+import tkinter as tk
+from tkinter import messagebox
 
 class Ihm:
-    def __init__(self, game):
-        self.game = game  # Initialise l'instance de la classe 'Jeux' passée en argument
-        
-        # Crée une nouvelle fenêtre Tkinter
-        self.window = tk.Tk()
-        self.window.title("Chassez l'Intrus")  # Définit le titre de la fenêtre
-        
-        # Obtenir les dimensions de l'écran
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
-        
-        # Calculer les dimensions de la fenêtre
-        window_width = int(screen_width * 0.5)
-        window_height = int(screen_height * 0.5)
-        
-        # Positionner la fenêtre au centre de l'écran
-        x_position = (screen_width - window_width) // 2
-        y_position = (screen_height - window_height) // 2
-        self.window.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")  # Définit la géométrie de la fenêtre
-        
-        # Crée un frame principal à l'intérieur de la fenêtre
-        self.main_frame = tk.Frame(self.window)
-        self.main_frame.pack(expand=True, fill=tk.BOTH, padx=20, pady=20)  # Place le frame dans la fenêtre
-        
-        # Crée un label pour afficher le texte "Choisissez une catégorie:"
-        self.category_label = tk.Label(self.main_frame, text="Choisissez une catégorie:")
-        self.category_label.pack()  # Place le label dans le frame principal
-        
-        # Crée une variable tkinter pour stocker la catégorie sélectionnée
-        self.category_var = tk.StringVar()
-        self.categories = self.game.get_categories()  # Récupère les catégories à partir de la logique de jeu
-        # Définit la première catégorie comme valeur par défaut si des catégories sont disponibles
-        self.category_var.set(self.categories[0].name if self.categories else "")
-        # Crée un menu déroulant des catégories à choisir
-        self.category_menu = tk.OptionMenu(self.main_frame, self.category_var, *[category.name for category in self.categories])
-        self.category_menu.pack()  # Place le menu déroulant dans le frame principal
-        
-        # Crée un bouton "Commencer" qui appelle la méthode start_game lorsqu'il est cliqué
-        self.start_button = tk.Button(self.main_frame, text="Commencer", command=self.start_game)
-        self.start_button.pack()  # Place le bouton dans le frame principal
-        
-        self.window.mainloop()  # Lance la boucle principale de la fenêtre Tkinter
+    def __init__(self, jeu):
+        # Initialisation de l'interface utilisateur avec le jeu passé en paramètre
+        self.jeu = jeu
+        self.fenetre = tk.Tk()  # Création d'une fenêtre Tkinter
+        self.fenetre.title("Chassez l'Intrus")  # Définition du titre de la fenêtre
 
-    def start_game(self):
-        # Récupère le nom de la catégorie sélectionnée
-        selected_category_name = self.category_var.get()
-        # Recherche la catégorie correspondante dans la liste des catégories
-        selected_category = next((category for category in self.categories if category.name == selected_category_name), None)
+        # Récupération des dimensions de l'écran
+        largeur_ecran = self.fenetre.winfo_screenwidth()
+        hauteur_ecran = self.fenetre.winfo_screenheight()
+
+        # Calcul des dimensions de la fenêtre
+        largeur_fenetre = int(largeur_ecran * 0.5)
+        hauteur_fenetre = int(hauteur_ecran * 0.5)
+
+        # Calcul de la position de la fenêtre sur l'écran
+        position_x = (largeur_ecran - largeur_fenetre) // 2
+        position_y = (hauteur_ecran - hauteur_fenetre) // 2
         
-        if selected_category:
-            # Si une catégorie valide est sélectionnée, récupère les questions associées à cette catégorie
-            questions = self.game.get_questions(selected_category.category_id)
-            if questions:
-                # TODO: Mettre en place la logique pour commencer le jeu avec les questions sélectionnées
-                pass
+        self.score = 0  # Initialisation du score du joueur
+
+        # Configuration de la géométrie de la fenêtre
+        self.fenetre.geometry(f"{largeur_fenetre}x{hauteur_fenetre}+{position_x}+{position_y}")
+
+        # Création d'un cadre principal pour placer les éléments de l'interface
+        self.cadre_principal = tk.Frame(self.fenetre)
+        self.cadre_principal.pack(expand=True, fill=tk.BOTH, padx=20, pady=20)
+
+        # Label pour afficher le message de sélection de catégorie
+        self.label_categorie = tk.Label(self.cadre_principal, text="Choisissez une catégorie:")
+        self.label_categorie.pack()
+
+        # Variable pour stocker la catégorie sélectionnée
+        self.var_categorie = tk.StringVar()
+        # Récupération des catégories disponibles depuis le jeu et initialisation de la variable
+        self.categories = self.jeu.obtenir_categories()
+        self.var_categorie.set(self.categories[0].nom if self.categories else "")
+
+        # Création du menu déroulant des catégories
+        self.menu_categorie = tk.OptionMenu(self.cadre_principal, self.var_categorie, *[cat.nom for cat in self.categories])
+        self.menu_categorie.pack()
+
+        # Bouton pour démarrer le jeu
+        self.bouton_demarrer = tk.Button(self.cadre_principal, text="Commencer", command=self.demarrer_jeu)
+        self.bouton_demarrer.pack()
+        
+        self.questions_actuelles = []  # Liste des questions actuelles
+        self.index_question_actuelle = 0  # Indice de la question actuelle dans la liste
+
+        self.fenetre.mainloop()  # Lancement de la boucle principale de l'interface
+
+    def demarrer_jeu(self):
+        # Méthode pour démarrer le jeu
+        nom_categorie_selectionnee = self.var_categorie.get()  # Récupération du nom de la catégorie sélectionnée
+        categorie_selectionnee = next((cat for cat in self.categories if cat.nom == nom_categorie_selectionnee), None)
+        
+        if categorie_selectionnee:
+            # Récupération des questions pour la catégorie sélectionnée
+            self.questions_actuelles = self.jeu.obtenir_questions(categorie_selectionnee.id)
+            self.index_question_actuelle = 0  # Commencer par la première question
+            if self.questions_actuelles:
+                # Affichage de la première question
+                self.afficher_question(self.questions_actuelles[self.index_question_actuelle])
             else:
+                # Affichage d'un message d'erreur si aucune question n'est trouvée pour la catégorie sélectionnée
+                print("Aucune question trouvée pour l'ID de catégorie:", categorie_selectionnee.id)
                 messagebox.showerror("Erreur", "Aucune question disponible pour cette catégorie.")
         else:
+            # Affichage d'un message d'erreur si la catégorie sélectionnée n'est pas valide
             messagebox.showerror("Erreur", "Catégorie sélectionnée non valide.")
+            
+    def afficher_question(self, question):
+        # Méthode pour afficher une question
+        # Nettoyage du cadre principal en détruisant tous les widgets enfants
+        for widget in self.cadre_principal.winfo_children():
+            widget.destroy()
+
+        # Affichage de la question
+        label_question = tk.Label(self.cadre_principal, text=question.texte)
+        label_question.pack()
+
+        # Affichage des options de réponse sous forme de boutons
+        for index, option in enumerate(question.options):
+            bouton_option = tk.Button(self.cadre_principal, text=option, command=lambda idx=index: self.verifier_reponse(question, idx))
+            bouton_option.pack()
+
+    def verifier_reponse(self, question, index_choisi):
+        # Méthode pour vérifier la réponse choisie par le joueur
+        if question.is_correct(index_choisi):
+            # Affichage d'un message de confirmation en cas de bonne réponse
+            messagebox.showinfo("Bravo", "Bonne réponse!\n" + question.explication)
+            self.score += 1  # Incrémentation du score en cas de bonne réponse
+        else:
+            # Affichage d'un message d'erreur en cas de mauvaise réponse
+            messagebox.showerror("Désolé", "Mauvaise réponse!\n" + question.explication)
+        
+        # Passage à la question suivante si possible
+        self.index_question_actuelle += 1
+        if self.index_question_actuelle < len(self.questions_actuelles):
+            # Affichage de la question suivante
+            self.afficher_question(self.questions_actuelles[self.index_question_actuelle])
+        else:
+            # Affichage de l'écran de fin de jeu si toutes les questions ont été répondues
+            self.afficher_fin_jeu()
+
+    def afficher_fin_jeu(self):
+        # Méthode pour afficher l'écran de fin de jeu
+        # Nettoyage du cadre principal en détruisant tous les widgets enfants
+        for widget in self.cadre_principal.winfo_children():
+            widget.destroy()
+
+        # Affichage d'un message de fin de jeu
+        messagebox.showinfo("Fin", "Vous avez terminé le quiz!")
+        # Affichage du score obtenu
+        messagebox.showinfo("Score", f"Votre score est de {self.score} / 10.")
+        # Bouton pour recommencer le jeu
+        bouton_recommencer = tk.Button(self.cadre_principal, text="Recommencer", command=self.recommencer_jeu)
+        bouton_recommencer.pack()
+
+        # Bouton pour quitter le jeu
+        bouton_quitter = tk.Button(self.cadre_principal, text="Quitter", command=self.quitter_jeu)
+        bouton_quitter.pack()
+
+   

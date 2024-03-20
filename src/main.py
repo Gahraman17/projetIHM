@@ -1,17 +1,22 @@
+# -*- coding: utf-8 -*-
+"""
+Code source du projet Cherchez l'intrus
+
+@author : fredt
+
+main : point d'entrée du programme
+"""
+
 # Importe les classes nécessaires depuis les fichiers correspondants.
-from Question import Question
-from Categorie import Categorie
-from Jeux import Jeux
-from Bdd import Bdd
-from Controller import Controller
-from Ihm import Ihm
+from controleur import Controleur
+from bdd import BaseDeDonnees
 
 if __name__ == "__main__":
     # Initialise une connexion à la base de données avec le chemin spécifié.
-    db = Bdd('C:/Users/fredt/OneDrive/Bureau/cours/Licence/projetQuizz/projetIHM/bdd/quiEstIntrus.bd')
+    db = BaseDeDonnees("bddIntrus.db")
     
     # Initialise le contrôleur avec la connexion à la base de données.
-    controller = Controller(db)
+    controleur = Controleur(db)
     
     # Démarre le programme en lançant l'interface utilisateur via le contrôleur.
-    controller.start()
+    controleur.demarrer()
