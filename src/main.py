@@ -9,11 +9,13 @@ main : point d'entrée du programme
 
 # Importe les classes nécessaires depuis les fichiers correspondants.
 from controleur import Controleur
-from bdd import BaseDeDonnees
+from Bdd import BaseDeDonnees
 
 if __name__ == "__main__":
-    # Initialise une connexion à la base de données avec le chemin spécifié.
-    db = BaseDeDonnees("bddIntrus.db")
+    
+    #BUG : chemin relatif ne fonctionne pas
+    # Initialise une connexion à la base de données avec le chemin complet
+    db = BaseDeDonnees("C:\\Users\\fredt\\OneDrive\\Bureau\\cours\\Licence\\projetQuizz\\projetIHM\\src\\bddIntrus.db")
     
     # Initialise le contrôleur avec la connexion à la base de données.
     controleur = Controleur(db)

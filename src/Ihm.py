@@ -9,6 +9,10 @@ Interface utilisateur du jeu Cherchez l'intrus
 
 import tkinter as tk
 from tkinter import messagebox
+import os # NOTE : Servira a récupérer le nom du joueur
+
+# TODO : Intégrer les fonctions de la classe Bdd
+from Bdd import BaseDeDonnees
 
 class Ihm:
     def __init__(self, jeu):
@@ -55,13 +59,16 @@ class Ihm:
         # Bouton pour démarrer le jeu
         self.bouton_demarrer = tk.Button(self.cadre_principal, text="Commencer", command=self.demarrer_jeu)
         self.bouton_demarrer.pack()
-        
         self.questions_actuelles = []  # Liste des questions actuelles
         self.index_question_actuelle = 0  # Indice de la question actuelle dans la liste
 
         self.fenetre.mainloop()  # Lancement de la boucle principale de l'interface
 
     def demarrer_jeu(self):
+        
+        # TODO : lancer la création de joueur dèes le début du jeu si le joueur n'existe pas
+        
+        
         # Méthode pour démarrer le jeu
         nom_categorie_selectionnee = self.var_categorie.get()  # Récupération du nom de la catégorie sélectionnée
         categorie_selectionnee = next((cat for cat in self.categories if cat.nom == nom_categorie_selectionnee), None)
@@ -114,6 +121,42 @@ class Ihm:
         else:
             # Affichage de l'écran de fin de jeu si toutes les questions ont été répondues
             self.afficher_fin_jeu()
+            
+            
+    def recommencer_jeu(self):
+        # Réinitialiser le score et l'état du jeu
+        self.score = 0
+        self.questions_actuelles = []
+        self.index_question_actuelle = 0
+
+        # Nettoyer le cadre principal
+        for widget in self.cadre_principal.winfo_children():
+            widget.destroy()
+
+        # Recréer les éléments UI pour le choix de la catégorie
+
+        # Label pour le choix de catégorie
+        self.label_categorie = tk.Label(self.cadre_principal, text="Choisissez une catégorie:")
+        self.label_categorie.pack()
+
+        # Mise à jour des catégories au cas où elles auraient changé
+        self.categories = self.jeu.obtenir_categories()
+        self.var_categorie.set(self.categories[0].nom if self.categories else "")
+
+        # Menu déroulant pour les catégories
+        self.menu_categorie = tk.OptionMenu(self.cadre_principal, self.var_categorie, *[cat.nom for cat in self.categories])
+        self.menu_categorie.pack()
+
+        # Bouton pour démarrer le jeu avec la catégorie sélectionnée
+        self.bouton_demarrer = tk.Button(self.cadre_principal, text="Commencer", command=self.demarrer_jeu)
+        self.bouton_demarrer.pack()
+
+
+
+    def quitter_jeu(self):
+        # Méthode pour quitter le jeu
+        self.fenetre.destroy()
+        
 
     def afficher_fin_jeu(self):
         # Méthode pour afficher l'écran de fin de jeu
@@ -125,12 +168,20 @@ class Ihm:
         messagebox.showinfo("Fin", "Vous avez terminé le quiz!")
         # Affichage du score obtenu
         messagebox.showinfo("Score", f"Votre score est de {self.score} / 10.")
+        
+        # TODO : enregistrer le score du joueur dans la base de données si son score est supérieur à son meilleur score
+        
         # Bouton pour recommencer le jeu
         bouton_recommencer = tk.Button(self.cadre_principal, text="Recommencer", command=self.recommencer_jeu)
         bouton_recommencer.pack()
-
+        
+        
         # Bouton pour quitter le jeu
         bouton_quitter = tk.Button(self.cadre_principal, text="Quitter", command=self.quitter_jeu)
         bouton_quitter.pack()
+        
+        
+        
+
 
    

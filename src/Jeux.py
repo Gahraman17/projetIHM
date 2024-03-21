@@ -6,6 +6,8 @@ Code source du projet Cherchez l'intrus
 
 Classe Jeux
 """
+# TODO : réfléchir à la pertinence de cette classe
+
 
 class Jeux:
     def __init__(self, db):

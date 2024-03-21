@@ -11,13 +11,24 @@ import sqlite3
 from Question import Question
 from categorie import Categorie
 
+
 class BaseDeDonnees:
     def __init__(self, nom_db):
         # Initialisation de la connexion à la base de données
         self.connexion = sqlite3.connect(nom_db)
         # Initialisation du curseur pour exécuter des requêtes SQL
         self.curseur = self.connexion.cursor()
-
+        
+    # FIXME : Faire fonctionner la création de joueurs
+    # def creer_joueurs(self, nom_joueur):
+    #     # Exécute une requête SQL pour créer la table des joueurs
+    #     self.curseur.execute("CREATE TABLE IF NOT EXISTS players (id INTEGER PRIMARY KEY, name TEXT)")
+    #     # Valide la transaction en commitant les changements dans la base de données
+    #     self.connexion.commit()
+    #     insert = "INSERT INTO players (name) VALUES (?)"
+    #     self.curseur.execute(insert, (nom_joueur, ))
+    #     self.connexion.commit()
+        
     def obtenir_categories(self):
         # Exécute une requête SQL pour récupérer les catégories depuis la base de données
         self.curseur.execute("SELECT id, name FROM categories")
