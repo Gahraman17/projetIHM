@@ -18,6 +18,11 @@ class Ihm:
         self.fenetre = tk.Tk()  # Création d'une fenêtre Tkinter
         self.fenetre.title("Chassez l'Intrus")  # Définition du titre de la fenêtre
         self.controleur = controleur
+        self.score = 0  # Initialisation du score du joueur
+
+        self.lblScore = tk.Label(self.fenetre, text="Score: " + str(self.score))
+        self.lblScore.pack()
+
 
 
         # Récupération des dimensions de l'écran
@@ -32,8 +37,7 @@ class Ihm:
         position_x = (largeur_ecran - largeur_fenetre) // 2
         position_y = (hauteur_ecran - hauteur_fenetre) // 2
         
-        self.score = 0  # Initialisation du score du joueur
-
+        
         # Configuration de la géométrie de la fenêtre
         self.fenetre.geometry(f"{largeur_fenetre}x{hauteur_fenetre}+{position_x}+{position_y}")
 
@@ -106,6 +110,7 @@ class Ihm:
             # Affichage d'un message de confirmation en cas de bonne réponse
             messagebox.showinfo("Bravo", "Bonne réponse!\n" + question.explication)
             self.score += 1  # Incrémentation du score en cas de bonne réponse
+            self.mettre_a_jour_score()
         else:
             # Affichage d'un message d'erreur en cas de mauvaise réponse
             messagebox.showerror("Désolé", "Mauvaise réponse!\n" + question.explication)
@@ -118,6 +123,11 @@ class Ihm:
         else:
             # Affichage de l'écran de fin de jeu si toutes les questions ont été répondues
             self.afficher_fin_jeu()
+
+    def mettre_a_jour_score(self):
+        # Méthode pour mettre à jour le label du score avec le nouveau score
+        self.lblScore.config(text="Score: " + str(self.score))
+
 
     def afficher_fin_jeu(self):
         # Méthode pour afficher l'écran de fin de jeu
