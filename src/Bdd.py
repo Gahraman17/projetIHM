@@ -19,14 +19,6 @@ class BaseDeDonnees:
         self.curseur = self.connexion.cursor()
 
 
-    def create_connection(self):
-        """ Créer une connexion à la base de données SQLite spécifiée par le paramètre db_file """
-        try:
-            self.conn = sqlite3.connect(self.db_file)
-            print(sqlite3.version)
-        except sqlite3.Error as e:
-            print(e)
-
     def create_tables(self):
         """ Créer les tables dans la base de données """
         if self.connexion is not None:
@@ -77,7 +69,7 @@ class BaseDeDonnees:
     def insert_questions_from_sql_file(self, sql_file):
         """ Insérer des questions à partir d'un fichier SQL """
         try:
-            with open(sql_file, 'r') as f:
+            with open(sql_file, 'r',encoding='utf-8') as f:
                 sql_commands = f.read().split(';')  # Séparer les commandes SQL
 
                 for command in sql_commands:
